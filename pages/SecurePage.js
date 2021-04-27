@@ -3,7 +3,6 @@ import { BasePage } from './BasePage';
 class SecurePage extends BasePage {
   constructor(page) {
     super(page);
-    this.page = page;
     this.successMessage = '#flash.success';
     this.logoutButton = 'a.button:visible';
   }
