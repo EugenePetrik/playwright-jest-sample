@@ -1,78 +1,95 @@
 import { beforeEach, afterEach, describe, test, expect } from '@jest/globals';
-import playwrigth from 'playwright';
+import faker from 'faker';
+import { LoginPage } from '../pages/LoginPage';
+import { SecurePage } from '../pages/SecurePage';
+import { roles } from '../data/roles';
+import { goto, run, stop } from '../utils/browser';
 
 describe('Login Page', function () {
-  let browser, context, page;
+  let page, loginPage, securePage;
 
   beforeEach(async function () {
-    browser = await playwrigth.chromium.launch({
-      headless: false,
-      slowMo: 500,
-      devtools: false,
-    });
-
-    context = await browser.newContext();
-    page = await context.newPage();
+    await run();
+    page = await goto('/login');
+    loginPage = new LoginPage(page);
+    securePage = new SecurePage(page);
   });
 
-  afterEach(function () {
-    page.close();
-    context.close();
-    browser.close();
+  afterEach(async function () {
+    await stop();
   });
 
   test('user should login with valid credentials', async function () {
-    await page.goto('https://the-internet.herokuapp.com/login', { waitUntil: 'load' });
-    await page.fill('#username', 'tomsmith');
-    await page.fill('#password', 'SuperSecretPassword!');
-    await page.click('button[type=submit]:visible');
+    await loginPage.signInAs(roles.admin);
 
-    const pageUrl = await page.url();
-    expect(pageUrl).toEqual('https://the-internet.herokuapp.com/secure');
+    const pageUrl = await securePage.getPageUrl();
+    expect(pageUrl).toContain('/secure');
 
-    const successMessage = await page.textContent('#flash.success');
+    const pageTitle = await securePage.getPageTitle();
+    expect(pageTitle).toEqual('The Internet');
+
+    const successMessage = await securePage.getSuccessMessage();
     expect(successMessage).toContain('You logged into a secure area!');
   });
 
   test('user should get an error when login with invalid username', async function () {
-    await page.goto('https://the-internet.herokuapp.com/login', { waitUntil: 'load' });
-    await page.fill('#username', 'username');
-    await page.fill('#password', 'SuperSecretPassword!!!');
-    await page.click('button[type=submit]:visible');
+    const adminWithInvalidUsername = {
+      username: faker.name.firstName(),
+      password: roles.admin.password,
+    };
 
-    const pageUrl = await page.url();
-    expect(pageUrl).toEqual('https://the-internet.herokuapp.com/login');
+    await loginPage.signInAs(adminWithInvalidUsername);
 
-    const errorMessage = await page.textContent('#flash.error');
-    expect(errorMessage).toContain('Your username is invalid!');
+    const pageUrl = await loginPage.getPageUrl();
+    expect(pageUrl).toContain('/login');
+
+    const pageTitle = await loginPage.getPageTitle();
+    expect(pageTitle).toEqual('The Internet');
+
+    const successMessage = await loginPage.getErrorMessage();
+    expect(successMessage).toContain('Your username is invalid!');
+  });
+
+  test('user should get an error when logging in with a non-existent user', async function () {
+    await loginPage.signInAs(roles.fakeUser);
+
+    const pageUrl = await loginPage.getPageUrl();
+    expect(pageUrl).toContain('/login');
+
+    const pageTitle = await loginPage.getPageTitle();
+    expect(pageTitle).toEqual('The Internet');
+
+    const successMessage = await loginPage.getErrorMessage();
+    expect(successMessage).toContain('Your username is invalid!');
   });
 
   test('user should get an error when login with invalid password', async function () {
-    await page.goto('https://the-internet.herokuapp.com/login', { waitUntil: 'load' });
-    await page.fill('#username', 'tomsmith');
-    await page.fill('#password', 'password');
-    await page.click('button[type=submit]:visible');
+    const adminWithInvalidPassword = {
+      username: roles.admin.username,
+      password: faker.internet.password(),
+    };
 
-    const pageUrl = await page.url();
-    expect(pageUrl).toEqual('https://the-internet.herokuapp.com/login');
+    await loginPage.signInAs(adminWithInvalidPassword);
 
-    const errorMessage = await page.textContent('#flash.error');
-    expect(errorMessage).toContain('Your password is invalid!');
+    const pageUrl = await loginPage.getPageUrl();
+    expect(pageUrl).toContain('/login');
+
+    const pageTitle = await loginPage.getPageTitle();
+    expect(pageTitle).toEqual('The Internet');
+
+    const successMessage = await loginPage.getErrorMessage();
+    expect(successMessage).toContain('Your password is invalid!');
   });
 
   test('user should logout from the system', async function () {
-    await page.goto('https://the-internet.herokuapp.com/login', { waitUntil: 'load' });
-    await page.fill('#username', 'tomsmith');
-    await page.fill('#password', 'SuperSecretPassword!');
-    await page.click('button[type=submit]:visible');
+    await loginPage.signInAs(roles.admin);
 
-    await page.waitForSelector('a.button', { state: 'visible' });
-    await page.click('a.button');
+    await securePage.clickOnLogoutButton();
 
-    const pageUrl = await page.url();
-    expect(pageUrl).toEqual('https://the-internet.herokuapp.com/login');
+    const pageUrl = await loginPage.getPageUrl();
+    expect(pageUrl).toContain('/login');
 
-    const successMessage = await page.textContent('#flash.success');
+    const successMessage = await loginPage.getSuccessMessage();
     expect(successMessage).toContain('You logged out of the secure area!');
   });
 });
