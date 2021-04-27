@@ -1,7 +1,9 @@
 import { beforeEach, afterEach, describe, test, expect } from '@jest/globals';
 import playwrigth from 'playwright';
+import faker from 'faker';
 import { LoginPage } from '../pages/LoginPage';
 import { SecurePage } from '../pages/SecurePage';
+import { roles } from '../data/roles';
 
 describe('Login Page', function () {
   let browser, context, page;
@@ -28,7 +30,7 @@ describe('Login Page', function () {
     loginPage = new LoginPage(page);
 
     await loginPage.open();
-    await loginPage.signInAs('tomsmith', 'SuperSecretPassword!');
+    await loginPage.signInAs(roles.admin);
 
     securePage = new SecurePage(page);
 
@@ -43,10 +45,31 @@ describe('Login Page', function () {
   });
 
   test('user should get an error when login with invalid username', async function () {
+    const adminWithInvalidUsername = {
+      username: faker.name.firstName(),
+      password: roles.admin.password,
+    };
+
     loginPage = new LoginPage(page);
 
     await loginPage.open();
-    await loginPage.signInAs('username', 'SuperSecretPassword!');
+    await loginPage.signInAs(adminWithInvalidUsername);
+
+    const pageUrl = await loginPage.getPageUrl();
+    expect(pageUrl).toContain('/login');
+
+    const pageTitle = await loginPage.getPageTitle();
+    expect(pageTitle).toEqual('The Internet');
+
+    const successMessage = await loginPage.getErrorMessage();
+    expect(successMessage).toContain('Your username is invalid!');
+  });
+
+  test('user should get an error when logging in with a non-existent user', async function () {
+    loginPage = new LoginPage(page);
+
+    await loginPage.open();
+    await loginPage.signInAs(roles.fakeUser);
 
     const pageUrl = await loginPage.getPageUrl();
     expect(pageUrl).toContain('/login');
@@ -59,10 +82,15 @@ describe('Login Page', function () {
   });
 
   test('user should get an error when login with invalid password', async function () {
+    const adminWithInvalidPassword = {
+      username: roles.admin.username,
+      password: faker.internet.password(),
+    };
+
     loginPage = new LoginPage(page);
 
     await loginPage.open();
-    await loginPage.signInAs('tomsmith', 'password!');
+    await loginPage.signInAs(adminWithInvalidPassword);
 
     const pageUrl = await loginPage.getPageUrl();
     expect(pageUrl).toContain('/login');
@@ -78,7 +106,7 @@ describe('Login Page', function () {
     loginPage = new LoginPage(page);
 
     await loginPage.open();
-    await loginPage.signInAs('tomsmith', 'SuperSecretPassword!');
+    await loginPage.signInAs(roles.admin);
 
     securePage = new SecurePage(page);
 

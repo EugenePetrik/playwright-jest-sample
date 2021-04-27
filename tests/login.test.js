@@ -2,9 +2,7 @@ import { beforeEach, afterEach, describe, test, expect } from '@jest/globals';
 import playwrigth from 'playwright';
 
 describe('Login Page', function () {
-  let browser = null;
-  let context = null;
-  let page = null;
+  let browser, context, page;
 
   beforeEach(async function () {
     browser = await playwrigth.chromium.launch({
