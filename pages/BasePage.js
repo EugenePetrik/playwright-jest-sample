@@ -3,10 +3,6 @@ class BasePage {
     this.page = page;
   }
 
-  async open(path) {
-    await this.page.goto('https://the-internet.herokuapp.com' + path, { waitUntil: 'load' });
-  }
-
   async getPageUrl() {
     return await this.page.url();
   }

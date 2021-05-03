@@ -10,10 +10,6 @@ class LoginPage extends BasePage {
     this.errorMessage = '#flash.error';
   }
 
-  async open() {
-    await super.open('/login');
-  }
-
   async signInAs({ username, password }) {
     await this.page.fill(this.usernameInput, username);
     await this.page.fill(this.passswordInput, password);
