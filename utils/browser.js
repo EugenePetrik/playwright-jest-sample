@@ -3,12 +3,12 @@ import { CONFIG } from '../config/env';
 
 const browserName = CONFIG.BROWSER_NAME;
 const deviceName = CONFIG.DEVICE_NAME;
-const width = parseInt(CONFIG.VIEWPORT_WIDTH);
-const height = parseInt(CONFIG.VIEWPORT_HEIGHT);
-const isNetworkSubscriptionEnabled = CONFIG.NETWORK_SUBSCRIPTION == 'true';
-const headless = CONFIG.HEADLESS == 'true';
-const devtools = CONFIG.DEVTOOLS == 'true';
-const slowMo = parseInt(CONFIG.SLOWMO);
+const width = CONFIG.VIEWPORT_WIDTH;
+const height = CONFIG.VIEWPORT_HEIGHT;
+const isNetworkSubscriptionEnabled = CONFIG.NETWORK_SUBSCRIPTION;
+const headless = CONFIG.HEADLESS;
+const devtools = CONFIG.DEVTOOLS;
+const slowMo = CONFIG.SLOWMO;
 const defaultViewport = CONFIG.VIEWPORT;
 
 let browser, context, page;
