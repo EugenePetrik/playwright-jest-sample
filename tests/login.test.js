@@ -28,6 +28,9 @@ describe('Login Page', function () {
     const pageTitle = await securePage.getPageTitle();
     expect(pageTitle).toEqual('The Internet');
 
+    const pageHeader = await loginPage.getHeaderText();
+    expect(pageHeader).toEqual('Secure Area');
+
     const successMessage = await securePage.getSuccessMessage();
     expect(successMessage).toContain('You logged into a secure area!');
   });
@@ -37,6 +40,9 @@ describe('Login Page', function () {
       username: faker.name.firstName(),
       password: roles.admin.password,
     };
+
+    const pageHeader = await loginPage.getHeaderText();
+    expect(pageHeader).toEqual('Login Page');
 
     await loginPage.signInAs(adminWithInvalidUsername);
 

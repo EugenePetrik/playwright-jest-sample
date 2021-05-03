@@ -19,8 +19,8 @@ describe('Main page', function () {
     const pageTitle = await mainPage.getPageTitle();
     expect(pageTitle).toEqual('The Internet');
 
-    const header = await mainPage.getHeaderText();
-    expect(header).toEqual('Welcome to the-internet');
+    const pageHeader = await mainPage.getHeaderText();
+    expect(pageHeader).toEqual('Welcome to the-internet');
   });
 
   test('should have available examples', async function () {

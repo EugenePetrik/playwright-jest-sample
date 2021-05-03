@@ -3,13 +3,14 @@ import { BasePage } from './BasePage';
 class MainPage extends BasePage {
   constructor(page) {
     super(page);
-    this.heading = 'h1.heading';
+    this.header = 'h1.heading';
     this.links = 'li a';
     this.footer = '#page-footer';
   }
 
   async getHeaderText() {
-    return await this.getElementContent(this.heading);
+    const header = await this.getElementContent(this.header);
+    return header.trim();
   }
 
   async getLinks() {
