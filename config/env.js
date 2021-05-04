@@ -14,14 +14,14 @@ export const CONFIG = cleanEnv(process.env, {
     desc: 'Mobile browser to be tested - iPhone X, iPhone 11 Pro, iPhone 8, etc.',
   }),
   HEADLESS: bool({
-    default: false,
+    default: true,
     desc: 'Headless browser enabled',
   }),
   DEVTOOLS: bool({
     default: false,
     desc: 'DevTools enabled',
   }),
-  SLOWMO: num({
+  SLOW_MO: num({
     default: 50,
     desc: 'Emplicit wait',
   }),

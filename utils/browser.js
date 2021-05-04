@@ -8,7 +8,7 @@ const height = CONFIG.VIEWPORT_HEIGHT;
 const isNetworkSubscriptionEnabled = CONFIG.NETWORK_SUBSCRIPTION;
 const headless = CONFIG.HEADLESS;
 const devtools = CONFIG.DEVTOOLS;
-const slowMo = CONFIG.SLOWMO;
+const slowMo = CONFIG.SLOW_MO;
 const defaultViewport = CONFIG.VIEWPORT;
 
 let browser, context, page;

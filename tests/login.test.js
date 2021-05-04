@@ -5,7 +5,7 @@ import { SecurePage } from '../pages/SecurePage';
 import { roles } from '../data/roles';
 import { goto, run, stop } from '../utils/browser';
 
-describe('Login Page', function () {
+describe('Login page', function () {
   let page, loginPage, securePage;
 
   beforeEach(async function () {
