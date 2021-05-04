@@ -23,12 +23,12 @@ describe('Checkboxes page', function () {
     expect(pageHeader).toEqual('Checkboxes');
   });
 
-  test('should have first checkbox unchecked', async function () {
+  test('should have first checkbox unchecked by default', async function () {
     const isCheckboxChecked = await checkboxesPage.isCheckboxChecked(1);
     expect(isCheckboxChecked).toBe(false);
   });
 
-  test('should have second checkbox checked', async function () {
+  test('should have second checkbox checked by default', async function () {
     const isCheckboxChecked = await checkboxesPage.isCheckboxChecked(2);
     expect(isCheckboxChecked).toBe(true);
   });

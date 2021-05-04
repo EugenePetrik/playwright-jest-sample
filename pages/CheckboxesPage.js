@@ -12,12 +12,12 @@ class CheckboxesPage extends BasePage {
   }
 
   async clickOnCheckbox(index) {
-    await this.page.click(`//*[@id="checkboxes"]/input[${index}]`, { timeout: 3000 });
+    await this.page.click(`//*[@id="checkboxes"]/input[${index}]`);
   }
 
   async isCheckboxChecked(index) {
     // return await this.page.$eval(`//*[@id="checkboxes"]/input[${index}]`, element => element.checked);
-    return await this.page.isChecked(`//*[@id="checkboxes"]/input[${index}]`, { timeout: 3000 });
+    return await this.page.isChecked(`//*[@id="checkboxes"]/input[${index}]`);
   }
 }
 
