@@ -14,7 +14,7 @@ export const CONFIG = cleanEnv(process.env, {
     desc: 'Mobile browser to be tested - iPhone X, iPhone 11 Pro, iPhone 8, etc.',
   }),
   HEADLESS: bool({
-    default: true,
+    default: false,
     desc: 'Headless browser enabled',
   }),
   DEVTOOLS: bool({

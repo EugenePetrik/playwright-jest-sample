@@ -1,5 +1,6 @@
 import { chromium, webkit, firefox, devices } from 'playwright';
 import { CONFIG } from '../config/env';
+import chalk from 'chalk';
 
 const browserName = CONFIG.BROWSER_NAME;
 const deviceName = CONFIG.DEVICE_NAME;
@@ -45,8 +46,8 @@ export async function run(viewport = defaultViewport) {
   }
 
   if (isNetworkSubscriptionEnabled) {
-    page.on('request', request => console.log('>>', request.method(), request.url()));
-    page.on('response', response => console.log('<<', response.status(), response.url()));
+    page.on('request', request => console.log(chalk.blue('>>', request.method(), request.url())));
+    page.on('response', response => console.log(chalk.green('<<', response.status(), response.url())));
   }
 }
 
