@@ -15,7 +15,7 @@ describe('Dropdown list page', function () {
     await stop();
   });
 
-  test('should have header', async function () {
+  test('should open the page', async function () {
     const pageTitle = await dropdownListPage.getPageTitle();
     expect(pageTitle).toEqual('The Internet');
 

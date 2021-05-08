@@ -19,6 +19,14 @@ describe('Login page', function () {
     await stop();
   });
 
+  test('should open the page', async function () {
+    const pageTitle = await loginPage.getPageTitle();
+    expect(pageTitle).toEqual('The Internet');
+
+    const pageHeader = await loginPage.getHeaderText();
+    expect(pageHeader).toEqual('Login Page');
+  });
+
   test('user should login with valid credentials', async function () {
     await loginPage.signInAs(roles.admin);
 
@@ -41,16 +49,10 @@ describe('Login page', function () {
       password: roles.admin.password,
     };
 
-    const pageHeader = await loginPage.getHeaderText();
-    expect(pageHeader).toEqual('Login Page');
-
     await loginPage.signInAs(adminWithInvalidUsername);
 
     const pageUrl = await loginPage.getPageUrl();
     expect(pageUrl).toContain('/login');
-
-    const pageTitle = await loginPage.getPageTitle();
-    expect(pageTitle).toEqual('The Internet');
 
     const successMessage = await loginPage.getErrorMessage();
     expect(successMessage).toContain('Your username is invalid!');
@@ -61,9 +63,6 @@ describe('Login page', function () {
 
     const pageUrl = await loginPage.getPageUrl();
     expect(pageUrl).toContain('/login');
-
-    const pageTitle = await loginPage.getPageTitle();
-    expect(pageTitle).toEqual('The Internet');
 
     const successMessage = await loginPage.getErrorMessage();
     expect(successMessage).toContain('Your username is invalid!');
@@ -79,9 +78,6 @@ describe('Login page', function () {
 
     const pageUrl = await loginPage.getPageUrl();
     expect(pageUrl).toContain('/login');
-
-    const pageTitle = await loginPage.getPageTitle();
-    expect(pageTitle).toEqual('The Internet');
 
     const successMessage = await loginPage.getErrorMessage();
     expect(successMessage).toContain('Your password is invalid!');

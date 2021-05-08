@@ -15,7 +15,7 @@ describe('Broken Images page', function () {
     await stop();
   });
 
-  test('should have header', async function () {
+  test('should open the page', async function () {
     const pageTitle = await brokenImagesPage.getPageTitle();
     expect(pageTitle).toEqual('The Internet');
 
