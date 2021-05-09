@@ -43,46 +43,6 @@ describe('Login page', function () {
     expect(successMessage).toContain('You logged into a secure area!');
   });
 
-  test('user should get an error when login with invalid username', async function () {
-    const adminWithInvalidUsername = {
-      username: faker.name.firstName(),
-      password: roles.admin.password,
-    };
-
-    await loginPage.signInAs(adminWithInvalidUsername);
-
-    const pageUrl = await loginPage.getPageUrl();
-    expect(pageUrl).toContain('/login');
-
-    const successMessage = await loginPage.getErrorMessage();
-    expect(successMessage).toContain('Your username is invalid!');
-  });
-
-  test('user should get an error when logging in with a non-existent user', async function () {
-    await loginPage.signInAs(roles.fakeUser);
-
-    const pageUrl = await loginPage.getPageUrl();
-    expect(pageUrl).toContain('/login');
-
-    const successMessage = await loginPage.getErrorMessage();
-    expect(successMessage).toContain('Your username is invalid!');
-  });
-
-  test('user should get an error when login with invalid password', async function () {
-    const adminWithInvalidPassword = {
-      username: roles.admin.username,
-      password: faker.internet.password(),
-    };
-
-    await loginPage.signInAs(adminWithInvalidPassword);
-
-    const pageUrl = await loginPage.getPageUrl();
-    expect(pageUrl).toContain('/login');
-
-    const successMessage = await loginPage.getErrorMessage();
-    expect(successMessage).toContain('Your password is invalid!');
-  });
-
   test('user should logout from the system', async function () {
     await loginPage.signInAs(roles.admin);
 
@@ -93,5 +53,49 @@ describe('Login page', function () {
 
     const successMessage = await loginPage.getSuccessMessage();
     expect(successMessage).toContain('You logged out of the secure area!');
+  });
+
+  const negativeTestData = [
+    {
+      testName: 'user should get an error when login with invalid username',
+      userData: {
+        username: faker.name.firstName(),
+        password: roles.admin.password,
+      },
+      expectedErrorMessage: 'Your username is invalid!',
+    },
+    {
+      testName: 'user should get an error when logging in with a non-existent user',
+      userData: roles.fakeUser,
+      expectedErrorMessage: 'Your username is invalid!',
+    },
+    {
+      testName: 'user should get an error when login with invalid password',
+      userData: {
+        username: roles.admin.username,
+        password: faker.internet.password(),
+      },
+      expectedErrorMessage: 'Your password is invalid!',
+    },
+    {
+      testName: 'user should get an error when login with empty username and password',
+      userData: {
+        username: '',
+        password: '',
+      },
+      expectedErrorMessage: 'Your username is invalid!',
+    },
+  ];
+
+  negativeTestData.forEach(({ testName, userData, expectedErrorMessage }) => {
+    test(`${testName}`, async function () {
+      await loginPage.signInAs(userData);
+
+      const pageUrl = await loginPage.getPageUrl();
+      expect(pageUrl).toContain('/login');
+
+      const actualErrorMessage = await loginPage.getErrorMessage();
+      expect(actualErrorMessage).toContain(expectedErrorMessage);
+    });
   });
 });
