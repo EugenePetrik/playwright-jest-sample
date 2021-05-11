@@ -3,21 +3,11 @@ import { BasePage } from './BasePage';
 class DynamicLoadingPage extends BasePage {
   constructor(page) {
     super(page);
-    this.header = 'h3';
-    this.subheader = 'h4';
+    this.header = 'css=h3';
+    this.subheader = 'css=h4';
     this.startButton = 'button:text("Start")';
-    this.loading = '#loading';
-    this.finishText = '#finish h4';
-  }
-
-  async getHeaderText() {
-    const header = await this.getElementContent(this.header);
-    return header.trim();
-  }
-
-  async getSubHeaderText() {
-    const subHeader = await this.getElementContent(this.subheader);
-    return subHeader.trim();
+    this.loading = 'css=#loading';
+    this.finishText = 'css=#finish h4';
   }
 
   async clickOnStartButton() {

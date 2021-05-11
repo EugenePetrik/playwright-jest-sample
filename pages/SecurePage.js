@@ -3,19 +3,14 @@ import { BasePage } from './BasePage';
 class SecurePage extends BasePage {
   constructor(page) {
     super(page);
-    this.header = 'h2';
-    this.successMessage = '#flash.success';
-    this.logoutButton = 'a.button:visible';
-  }
-
-  async getHeaderText() {
-    const header = await this.getElementContent(this.header);
-    return header.trim();
+    this.header = 'css=h2';
+    this.successMessage = 'css=#flash.success';
+    this.logoutButton = 'css=a.button:visible';
   }
 
   async getSuccessMessage() {
     const text = await this.getElementContent(this.successMessage);
-    return text.trim();
+    return text.trim().match(/^.*!/g)[0];
   }
 
   async clickOnLogoutButton() {

@@ -1,4 +1,3 @@
-import { beforeEach, afterEach, describe, test, expect } from '@jest/globals';
 import { BrokenImagesPage } from '../pages/BrokenImagesPage';
 import { goto, run, stop } from '../utils/browser';
 

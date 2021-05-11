@@ -1,4 +1,3 @@
-import { beforeEach, afterEach, describe, test, expect } from '@jest/globals';
 import { CheckboxesPage } from '../pages/CheckboxesPage';
 import { goto, run, stop } from '../utils/browser';
 

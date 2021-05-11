@@ -1,4 +1,3 @@
-import { beforeEach, afterEach, describe, test, expect } from '@jest/globals';
 import faker from 'faker';
 import { LoginPage } from '../pages/LoginPage';
 import { SecurePage } from '../pages/SecurePage';
@@ -40,7 +39,7 @@ describe('Login page', function () {
     expect(pageHeader).toEqual('Secure Area');
 
     const successMessage = await securePage.getSuccessMessage();
-    expect(successMessage).toContain('You logged into a secure area!');
+    expect(successMessage).toBe('You logged into a secure area!');
   });
 
   test('user should logout from the system', async function () {
@@ -52,7 +51,7 @@ describe('Login page', function () {
     expect(pageUrl).toContain('/login');
 
     const successMessage = await loginPage.getSuccessMessage();
-    expect(successMessage).toContain('You logged out of the secure area!');
+    expect(successMessage).toBe('You logged out of the secure area!');
   });
 
   const negativeTestData = [
@@ -95,7 +94,7 @@ describe('Login page', function () {
       expect(pageUrl).toContain('/login');
 
       const actualErrorMessage = await loginPage.getErrorMessage();
-      expect(actualErrorMessage).toContain(expectedErrorMessage);
+      expect(actualErrorMessage).toBe(expectedErrorMessage);
     });
   });
 });

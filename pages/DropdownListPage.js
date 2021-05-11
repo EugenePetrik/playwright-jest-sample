@@ -3,13 +3,8 @@ import { BasePage } from './BasePage';
 class DropdownListPage extends BasePage {
   constructor(page) {
     super(page);
-    this.header = 'h3';
-    this.dropdown = '#dropdown';
-  }
-
-  async getHeaderText() {
-    const header = await this.getElementContent(this.header);
-    return header.trim();
+    this.header = 'css=h3';
+    this.dropdown = 'css=#dropdown';
   }
 
   async selectOptionWith(option) {
@@ -18,7 +13,7 @@ class DropdownListPage extends BasePage {
   }
 
   getDropdownSelector(index) {
-    return `//select[@id="dropdown"]/option[${index}]`;
+    return `//select[@id='dropdown']/option[${index}]`;
   }
 
   async isOptionSelected(index) {
