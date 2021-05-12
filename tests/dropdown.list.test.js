@@ -1,5 +1,5 @@
 import { DropdownListPage } from '../pages/DropdownListPage';
-import { goto, run, stop } from '../utils/browser';
+import { goto, run, stop } from '../config/browser_config';
 
 describe('Dropdown list page', function () {
   let page, dropdownListPage;

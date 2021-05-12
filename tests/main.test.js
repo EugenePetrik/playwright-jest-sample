@@ -1,5 +1,5 @@
 import { MainPage } from '../pages/MainPage';
-import { goto, run, stop } from '../utils/browser';
+import { goto, run, stop } from '../config/browser_config';
 
 describe('Main page', function () {
   let page, mainPage;

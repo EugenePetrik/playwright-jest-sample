@@ -1,5 +1,5 @@
 import { AddRemoveElementsPage } from '../pages/AddRemoveElementsPage';
-import { goto, run, stop } from '../utils/browser';
+import { goto, run, stop } from '../config/browser_config';
 
 describe('Add Remove Elements page', function () {
   let page, addRemoveElementsPage;

@@ -1,5 +1,5 @@
 import { chromium, webkit, firefox, devices } from 'playwright';
-import { CONFIG } from '../config/env';
+import { CONFIG } from './env';
 import chalk from 'chalk';
 
 const browserName = CONFIG.BROWSER_NAME;

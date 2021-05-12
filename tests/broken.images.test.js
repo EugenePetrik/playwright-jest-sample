@@ -1,5 +1,5 @@
 import { BrokenImagesPage } from '../pages/BrokenImagesPage';
-import { goto, run, stop } from '../utils/browser';
+import { goto, run, stop } from '../config/browser_config';
 
 describe('Broken Images page', function () {
   let page, brokenImagesPage;

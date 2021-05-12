@@ -2,7 +2,7 @@ import faker from 'faker';
 import { LoginPage } from '../pages/LoginPage';
 import { SecurePage } from '../pages/SecurePage';
 import { roles } from '../data/roles';
-import { goto, run, stop } from '../utils/browser';
+import { goto, run, stop } from '../config/browser_config';
 
 describe('Login page', function () {
   let page, loginPage, securePage;
