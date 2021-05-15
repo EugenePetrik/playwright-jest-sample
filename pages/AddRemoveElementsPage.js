@@ -1,4 +1,5 @@
 import { BasePage } from './BasePage';
+import { logger } from '../config/logger_config';
 
 class AddRemoveElementsPage extends BasePage {
   constructor(page) {
@@ -10,18 +11,21 @@ class AddRemoveElementsPage extends BasePage {
 
   async clickOnAddElementButton(count = 1) {
     for (let i = 0; i < count; i++) {
+      logger.debug('Click on the [Add Element] button on the Add Remove Elements page');
       await this.page.click(this.addElementButton);
     }
   }
 
-  async getDeleteButtonsLength() {
+  async getDeleteButtons() {
+    logger.debug('Get all [Delete] buttons on the Add Remove Elements page');
     return await this.page.$$(this.deleteButton);
   }
 
   async clickOnDeleteButton() {
-    const buttons = await this.getDeleteButtonsLength();
+    const buttons = await this.getDeleteButtons();
 
     for (let i = 0; i < buttons.length; i++) {
+      logger.debug('Click on the [Delete] button on the Add Remove Elements page');
       await this.page.click(this.deleteButton);
     }
   }

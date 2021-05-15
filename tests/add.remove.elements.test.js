@@ -25,14 +25,14 @@ describe('Add Remove Elements page', function () {
   test('should add one element', async function () {
     await addRemoveElementsPage.clickOnAddElementButton();
 
-    const removeButtons = await addRemoveElementsPage.getDeleteButtonsLength();
+    const removeButtons = await addRemoveElementsPage.getDeleteButtons();
     expect(removeButtons).toHaveLength(1);
   });
 
   test('should add 10 elements', async function () {
     await addRemoveElementsPage.clickOnAddElementButton(10);
 
-    const removeButtons = await addRemoveElementsPage.getDeleteButtonsLength();
+    const removeButtons = await addRemoveElementsPage.getDeleteButtons();
     expect(removeButtons).toHaveLength(10);
   });
 
@@ -41,7 +41,7 @@ describe('Add Remove Elements page', function () {
 
     await addRemoveElementsPage.clickOnDeleteButton();
 
-    const removeButtons = await addRemoveElementsPage.getDeleteButtonsLength();
+    const removeButtons = await addRemoveElementsPage.getDeleteButtons();
     expect(removeButtons).toHaveLength(0);
   });
 });

@@ -1,4 +1,5 @@
 import { BasePage } from './BasePage';
+import { logger } from '../config/logger_config';
 
 class BrokenImagesPage extends BasePage {
   constructor(page) {
@@ -7,13 +8,15 @@ class BrokenImagesPage extends BasePage {
   }
 
   getImageSelector(index) {
-    return `//div[@class='example']/img[${index}]`;
+    return `xpath=//div[@class='example']/img[${index}]`;
   }
 
   async getImageSrcForAvatar(index) {
     // await this.page.evaluate(element => element.value, await this.page.$('input'));
     // await this.page.evaluate(() => document.querySelector('input').getAttribute('value'));
-    return await this.page.$eval(this.getImageSelector(index), element => element.src);
+    const imgSrc = await this.page.$eval(this.getImageSelector(index), element => element.src);
+    logger.debug(`Image ${index} has src ${imgSrc} on the Broken Images page`);
+    return imgSrc;
   }
 }
 

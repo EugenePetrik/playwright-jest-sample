@@ -1,4 +1,5 @@
 import { BasePage } from './BasePage';
+import { logger } from '../config/logger_config';
 
 class MainPage extends BasePage {
   constructor(page) {
@@ -9,11 +10,14 @@ class MainPage extends BasePage {
   }
 
   async getLinks() {
-    return await this.page.$$eval(this.links, links => links.map(link => link.innerText.trim()));
+    const linkText = await this.page.$$eval(this.links, links => links.map(link => link.innerText.trim()));
+    logger.debug(`Link text is ${linkText} on the Main page`);
+    return linkText;
   }
 
   async getFooterText() {
     const footer = await this.getElementContent(this.footer);
+    logger.debug(`Footer text is ${footer.trim()} on the Main page`);
     return footer.trim();
   }
 }

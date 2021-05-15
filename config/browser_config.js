@@ -1,5 +1,6 @@
 import { chromium, webkit, firefox, devices } from 'playwright';
 import { CONFIG } from './env';
+import { logger } from './logger_config.js';
 import chalk from 'chalk';
 
 const browserName = CONFIG.BROWSER_NAME;
@@ -15,7 +16,9 @@ const defaultViewport = CONFIG.VIEWPORT;
 let browser, context, page;
 
 export async function goto(path) {
-  await page.goto(CONFIG.THE_INTERNET_URL + path, { waitUntil: 'load' });
+  const pageUrl = CONFIG.THE_INTERNET_URL + path;
+  logger.info(`Open page - ${pageUrl}`);
+  await page.goto(pageUrl, { waitUntil: 'load' });
   return page;
 }
 
@@ -26,16 +29,21 @@ export async function run(viewport = defaultViewport) {
     slowMo,
   });
 
+  logger.info(`Current browser - ${browserName}`);
+  logger.info(`Current viewport - ${viewport}`);
+
   switch (viewport) {
     case 'desktop':
-      context = await browser.newContext();
-      page = await context.newPage();
-      await page.setViewportSize({
-        width,
-        height,
+      context = await browser.newContext({
+        viewport: {
+          width,
+          height,
+        },
       });
+      page = await context.newPage();
       break;
     case 'mobile':
+      logger.info(`Device - ${deviceName}`);
       context = await browser.newContext({
         ...devices[deviceName],
       });
@@ -46,8 +54,8 @@ export async function run(viewport = defaultViewport) {
   }
 
   if (isNetworkSubscriptionEnabled) {
-    page.on('request', request => console.log(chalk.blue('>>', request.method(), request.url())));
-    page.on('response', response => console.log(chalk.green('<<', response.status(), response.url())));
+    page.on('request', request => logger.debug(chalk.green('>>', request.method(), request.url())));
+    page.on('response', response => logger.debug(chalk.green('<<', response.status(), response.url())));
   }
 }
 

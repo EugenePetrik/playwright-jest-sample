@@ -1,7 +1,7 @@
 import { DynamicLoadingPage } from '../pages/DynamicLoadingPage';
 import { goto, run, stop } from '../config/browser_config';
 
-describe('Add Remove Elements page', function () {
+describe('Dynamic Loading page', function () {
   let page, dynamicLoadingPage;
 
   beforeEach(async function () {
