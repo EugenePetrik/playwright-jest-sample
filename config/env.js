@@ -1,6 +1,6 @@
 import { bool, cleanEnv, num, str, url } from 'envalid';
 
-export const CONFIG = cleanEnv(process.env, {
+export const env = cleanEnv(process.env, {
   THE_INTERNET_URL: url({
     default: 'https://the-internet.herokuapp.com',
     desc: 'App URL to be tested',

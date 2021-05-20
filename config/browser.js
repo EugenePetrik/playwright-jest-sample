@@ -1,19 +1,19 @@
 import { chromium, webkit, firefox, devices } from 'playwright';
-import { CONFIG } from './env';
-import { logger } from './logger_config.js';
+import { env } from './env';
+import { logger } from './logger';
 import chalk from 'chalk';
 
-class BrowserConfig {
+class Browser {
   constructor() {
-    this.browserName = CONFIG.BROWSER_NAME;
-    this.deviceName = CONFIG.DEVICE_NAME;
-    this.width = CONFIG.VIEWPORT_WIDTH;
-    this.height = CONFIG.VIEWPORT_HEIGHT;
-    this.isNetworkSubscriptionEnabled = CONFIG.NETWORK_SUBSCRIPTION;
-    this.headless = CONFIG.HEADLESS;
-    this.devtools = CONFIG.DEVTOOLS;
-    this.slowMo = CONFIG.SLOW_MO;
-    this.defaultViewport = CONFIG.VIEWPORT;
+    this.browserName = env.BROWSER_NAME;
+    this.deviceName = env.DEVICE_NAME;
+    this.width = env.VIEWPORT_WIDTH;
+    this.height = env.VIEWPORT_HEIGHT;
+    this.isNetworkSubscriptionEnabled = env.NETWORK_SUBSCRIPTION;
+    this.headless = env.HEADLESS;
+    this.devtools = env.DEVTOOLS;
+    this.slowMo = env.SLOW_MO;
+    this.defaultViewport = env.VIEWPORT;
 
     this.browser = null;
     this.context = null;
@@ -84,4 +84,4 @@ class BrowserConfig {
   }
 }
 
-export default new BrowserConfig();
+export default new Browser();
