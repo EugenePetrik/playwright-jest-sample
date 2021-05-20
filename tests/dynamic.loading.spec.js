@@ -1,17 +1,27 @@
 import { DynamicLoadingPage } from '../pages/DynamicLoadingPage';
-import { goto, run, stop } from '../config/browser_config';
+import browser from '../config/browser';
 
 describe('Dynamic Loading page', function () {
-  let page, dynamicLoadingPage;
+  let dynamicLoadingPage;
+
+  beforeAll(async function () {
+    await browser.openBrowser();
+    await browser.openBrowserContext();
+  });
 
   beforeEach(async function () {
-    await run();
-    page = await goto('/dynamic_loading/1');
+    const page = await browser.openPage();
     dynamicLoadingPage = new DynamicLoadingPage(page);
+    await dynamicLoadingPage.open();
   });
 
   afterEach(async function () {
-    await stop();
+    await browser.closePage();
+  });
+
+  afterAll(async function () {
+    await browser.closeBrowserContext();
+    await browser.closeBrowser();
   });
 
   test('should open the page', async function () {

@@ -1,17 +1,27 @@
 import { CheckboxesPage } from '../pages/CheckboxesPage';
-import { goto, run, stop } from '../config/browser_config';
+import browser from '../config/browser';
 
 describe('Checkboxes page', function () {
-  let page, checkboxesPage;
+  let checkboxesPage;
+
+  beforeAll(async function () {
+    await browser.openBrowser();
+    await browser.openBrowserContext();
+  });
 
   beforeEach(async function () {
-    await run();
-    page = await goto('/checkboxes');
+    const page = await browser.openPage();
     checkboxesPage = new CheckboxesPage(page);
+    await checkboxesPage.open();
   });
 
   afterEach(async function () {
-    await stop();
+    await browser.closePage();
+  });
+
+  afterAll(async function () {
+    await browser.closeBrowserContext();
+    await browser.closeBrowser();
   });
 
   test('should open the page', async function () {

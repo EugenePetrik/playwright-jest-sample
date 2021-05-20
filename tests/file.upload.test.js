@@ -1,18 +1,28 @@
 import { FileUploadPage } from '../pages/FileUploadPage';
-import { goto, run, stop } from '../config/browser_config';
+import browser from '../config/browser';
 import path from 'path';
 
 describe('File Upload page', function () {
-  let page, fileUploadPage;
+  let fileUploadPage;
+
+  beforeAll(async function () {
+    await browser.openBrowser();
+    await browser.openBrowserContext();
+  });
 
   beforeEach(async function () {
-    await run();
-    page = await goto('/upload');
+    const page = await browser.openPage();
     fileUploadPage = new FileUploadPage(page);
+    await fileUploadPage.open();
   });
 
   afterEach(async function () {
-    await stop();
+    await browser.closePage();
+  });
+
+  afterAll(async function () {
+    await browser.closeBrowserContext();
+    await browser.closeBrowser();
   });
 
   test('should open the page', async function () {

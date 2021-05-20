@@ -1,17 +1,27 @@
 import { AddRemoveElementsPage } from '../pages/AddRemoveElementsPage';
-import { goto, run, stop } from '../config/browser_config';
+import browser from '../config/browser';
 
 describe('Add Remove Elements page', function () {
-  let page, addRemoveElementsPage;
+  let addRemoveElementsPage;
+
+  beforeAll(async function () {
+    await browser.openBrowser();
+    await browser.openBrowserContext();
+  });
 
   beforeEach(async function () {
-    await run();
-    page = await goto('/add_remove_elements/');
+    const page = await browser.openPage();
     addRemoveElementsPage = new AddRemoveElementsPage(page);
+    await addRemoveElementsPage.open();
   });
 
   afterEach(async function () {
-    await stop();
+    await browser.closePage();
+  });
+
+  afterAll(async function () {
+    await browser.closeBrowserContext();
+    await browser.closeBrowser();
   });
 
   test('should open the page', async function () {

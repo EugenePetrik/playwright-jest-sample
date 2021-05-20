@@ -1,17 +1,27 @@
 import { DropdownListPage } from '../pages/DropdownListPage';
-import { goto, run, stop } from '../config/browser_config';
+import browser from '../config/browser';
 
 describe('Dropdown list page', function () {
-  let page, dropdownListPage;
+  let dropdownListPage;
+
+  beforeAll(async function () {
+    await browser.openBrowser();
+    await browser.openBrowserContext();
+  });
 
   beforeEach(async function () {
-    await run();
-    page = await goto('/dropdown');
+    const page = await browser.openPage();
     dropdownListPage = new DropdownListPage(page);
+    await dropdownListPage.open();
   });
 
   afterEach(async function () {
-    await stop();
+    await browser.closePage();
+  });
+
+  afterAll(async function () {
+    await browser.closeBrowserContext();
+    await browser.closeBrowser();
   });
 
   test('should open the page', async function () {

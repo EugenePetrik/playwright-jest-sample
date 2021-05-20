@@ -2,20 +2,30 @@ import faker from 'faker';
 import { LoginPage } from '../pages/LoginPage';
 import { SecurePage } from '../pages/SecurePage';
 import { roles } from '../data/roles';
-import { goto, run, stop } from '../config/browser_config';
+import browser from '../config/browser';
 
 describe('Login page', function () {
-  let page, loginPage, securePage;
+  let loginPage, securePage;
+
+  beforeAll(async function () {
+    await browser.openBrowser();
+    await browser.openBrowserContext();
+  });
 
   beforeEach(async function () {
-    await run();
-    page = await goto('/login');
+    const page = await browser.openPage();
     loginPage = new LoginPage(page);
     securePage = new SecurePage(page);
+    await loginPage.open();
   });
 
   afterEach(async function () {
-    await stop();
+    await browser.closePage();
+  });
+
+  afterAll(async function () {
+    await browser.closeBrowserContext();
+    await browser.closeBrowser();
   });
 
   test('should open the page', async function () {
@@ -27,7 +37,7 @@ describe('Login page', function () {
   });
 
   test('user should login with valid credentials', async function () {
-    await loginPage.signInAs(roles.admin);
+    await loginPage.signInAs(roles.adminUser);
 
     const pageUrl = await securePage.getPageUrl();
     expect(pageUrl).toContain('/secure');
@@ -43,7 +53,7 @@ describe('Login page', function () {
   });
 
   test('user should logout from the system', async function () {
-    await loginPage.signInAs(roles.admin);
+    await loginPage.signInAs(roles.adminUser);
 
     await securePage.clickOnLogoutButton();
 
@@ -56,10 +66,10 @@ describe('Login page', function () {
 
   const negativeTestData = [
     {
-      testName: 'user should get an error when login with invalid username',
+      testName: 'user should get an error when logging in with invalid username',
       userData: {
         username: faker.name.firstName(),
-        password: roles.admin.password,
+        password: roles.adminUser.password,
       },
       expectedErrorMessage: 'Your username is invalid!',
     },
@@ -69,15 +79,15 @@ describe('Login page', function () {
       expectedErrorMessage: 'Your username is invalid!',
     },
     {
-      testName: 'user should get an error when login with invalid password',
+      testName: 'user should get an error when logging in with invalid password',
       userData: {
-        username: roles.admin.username,
+        username: roles.adminUser.username,
         password: faker.internet.password(),
       },
       expectedErrorMessage: 'Your password is invalid!',
     },
     {
-      testName: 'user should get an error when login with empty username and password',
+      testName: 'user should get an error when logging in with empty username and password',
       userData: {
         username: '',
         password: '',

@@ -1,17 +1,28 @@
 import { HoversPage } from '../pages/HoversPage';
-import { goto, run, stop } from '../config/browser_config';
+import browser from '../config/browser';
+import { env } from '../config/env';
 
 describe('Hovers page', function () {
-  let page, hoversPage;
+  let hoversPage;
+
+  beforeAll(async function () {
+    await browser.openBrowser();
+    await browser.openBrowserContext();
+  });
 
   beforeEach(async function () {
-    await run();
-    page = await goto('/hovers');
+    const page = await browser.openPage();
     hoversPage = new HoversPage(page);
+    await hoversPage.open();
   });
 
   afterEach(async function () {
-    await stop();
+    await browser.closePage();
+  });
+
+  afterAll(async function () {
+    await browser.closeBrowserContext();
+    await browser.closeBrowser();
   });
 
   test('should open the page', async function () {
@@ -30,9 +41,9 @@ describe('Hovers page', function () {
 
     const userData = await hoversPage.getUserData(3);
     expect(userData).toEqual({
-      avatar: 'https://the-internet.herokuapp.com/img/avatar-blank.jpg',
+      avatar: `${env.THE_INTERNET_URL}/img/avatar-blank.jpg`,
       name: 'name: user3',
-      profile: 'https://the-internet.herokuapp.com/users/3',
+      profile: `${env.THE_INTERNET_URL}/users/3`,
     });
   });
 });

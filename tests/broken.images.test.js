@@ -1,17 +1,27 @@
 import { BrokenImagesPage } from '../pages/BrokenImagesPage';
-import { goto, run, stop } from '../config/browser_config';
+import browser from '../config/browser';
 
 describe('Broken Images page', function () {
-  let page, brokenImagesPage;
+  let brokenImagesPage;
+
+  beforeAll(async function () {
+    await browser.openBrowser();
+    await browser.openBrowserContext();
+  });
 
   beforeEach(async function () {
-    await run();
-    page = await goto('/broken_images');
+    const page = await browser.openPage();
     brokenImagesPage = new BrokenImagesPage(page);
+    await brokenImagesPage.open();
   });
 
   afterEach(async function () {
-    await stop();
+    await browser.closePage();
+  });
+
+  afterAll(async function () {
+    await browser.closeBrowserContext();
+    await browser.closeBrowser();
   });
 
   test('should open the page', async function () {
