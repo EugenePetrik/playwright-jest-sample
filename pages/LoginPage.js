@@ -1,5 +1,5 @@
 import { BasePage } from './BasePage';
-import { logger } from '../config/logger_config';
+import { logger } from '../config/logger';
 
 class LoginPage extends BasePage {
   constructor(page) {
@@ -10,6 +10,11 @@ class LoginPage extends BasePage {
     this.loginButton = 'button[type=submit]:visible';
     this.successMessage = 'css=#flash.success';
     this.errorMessage = 'css=#flash.error';
+  }
+
+  async open() {
+    logger.info('Open the Login page');
+    await super.open('/login');
   }
 
   async signInAs({ username, password }) {

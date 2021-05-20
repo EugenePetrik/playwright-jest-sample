@@ -1,5 +1,5 @@
 import { BasePage } from './BasePage';
-import { logger } from '../config/logger_config';
+import { logger } from '../config/logger';
 
 class SecurePage extends BasePage {
   constructor(page) {

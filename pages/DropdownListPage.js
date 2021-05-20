@@ -1,11 +1,16 @@
 import { BasePage } from './BasePage';
-import { logger } from '../config/logger_config';
+import { logger } from '../config/logger';
 
 class DropdownListPage extends BasePage {
   constructor(page) {
     super(page);
     this.header = 'css=h3';
     this.dropdown = 'css=#dropdown';
+  }
+
+  async open() {
+    logger.info('Open the Dropdown List page');
+    await super.open('/dropdown');
   }
 
   async selectOptionWith(option) {

@@ -1,10 +1,15 @@
 import { BasePage } from './BasePage';
-import { logger } from '../config/logger_config';
+import { logger } from '../config/logger';
 
 class HoversPage extends BasePage {
   constructor(page) {
     super(page);
     this.header = 'css=h3';
+  }
+
+  async open() {
+    logger.info('Open the Hovers page');
+    await super.open('/hovers');
   }
 
   getUserAvatar(index) {

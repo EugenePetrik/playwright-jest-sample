@@ -1,5 +1,5 @@
 import { BasePage } from './BasePage';
-import { logger } from '../config/logger_config';
+import { logger } from '../config/logger';
 
 class DynamicLoadingPage extends BasePage {
   constructor(page) {
@@ -9,6 +9,11 @@ class DynamicLoadingPage extends BasePage {
     this.startButton = 'button:text("Start")';
     this.loading = 'css=#loading';
     this.finishText = 'css=#finish h4';
+  }
+
+  async open() {
+    logger.info('Open the Dynamic Loading page');
+    await super.open('/dynamic_loading/1');
   }
 
   async clickOnStartButton() {

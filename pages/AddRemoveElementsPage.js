@@ -1,5 +1,5 @@
 import { BasePage } from './BasePage';
-import { logger } from '../config/logger_config';
+import { logger } from '../config/logger';
 
 class AddRemoveElementsPage extends BasePage {
   constructor(page) {
@@ -7,6 +7,11 @@ class AddRemoveElementsPage extends BasePage {
     this.header = 'css=h3';
     this.addElementButton = 'button:text("Add Element")';
     this.deleteButton = 'button:text("Delete")';
+  }
+
+  async open() {
+    logger.info('Open the Add Remove Elements page');
+    await super.open('/add_remove_elements/');
   }
 
   async clickOnAddElementButton(count = 1) {

@@ -1,5 +1,5 @@
 import { BasePage } from './BasePage';
-import { logger } from '../config/logger_config';
+import { logger } from '../config/logger';
 
 class FileUploadPage extends BasePage {
   constructor(page) {
@@ -8,6 +8,11 @@ class FileUploadPage extends BasePage {
     this.uploadFileInput = 'css=input[type=file]';
     this.uploadButton = 'css=input#file-submit';
     this.fileName = 'css=div#uploaded-files';
+  }
+
+  async open() {
+    logger.info('Open the File Upload page');
+    await super.open('/upload');
   }
 
   async uploadFile(path) {

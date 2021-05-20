@@ -1,5 +1,5 @@
 import { BasePage } from './BasePage';
-import { logger } from '../config/logger_config';
+import { logger } from '../config/logger';
 
 class MainPage extends BasePage {
   constructor(page) {
@@ -9,9 +9,14 @@ class MainPage extends BasePage {
     this.footer = 'css=#page-footer';
   }
 
+  async open() {
+    logger.info('Open the Main page');
+    await super.open('/');
+  }
+
   async getLinks() {
     const linkText = await this.page.$$eval(this.links, links => links.map(link => link.innerText.trim()));
-    logger.debug(`Link text is ${linkText} on the Main page`);
+    logger.debug(`Link text is ${linkText.join(', ')} on the Main page`);
     return linkText;
   }
 

@@ -1,8 +1,16 @@
-import { logger } from '../config/logger_config';
+import { env } from '../config/env';
+import { logger } from '../config/logger';
 
 class BasePage {
   constructor(page) {
     this.page = page;
+  }
+
+  async open(path) {
+    const pageUrl = env.THE_INTERNET_URL + path;
+    logger.info(`Page URL - ${pageUrl}`);
+    await this.page.goto(pageUrl, { waitUntil: 'load' });
+    return this.page;
   }
 
   async getPageUrl() {

@@ -1,10 +1,15 @@
 import { BasePage } from './BasePage';
-import { logger } from '../config/logger_config';
+import { logger } from '../config/logger';
 
 class CheckboxesPage extends BasePage {
   constructor(page) {
     super(page);
     this.header = 'css=h3';
+  }
+
+  async open() {
+    logger.info('Open the Checkboxes page');
+    await super.open('/checkboxes');
   }
 
   getCheckboxSelector(index) {
