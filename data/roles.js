@@ -1,6 +1,6 @@
 import faker from 'faker';
 
-export const roles = {
+const roles = {
   adminUser: {
     username: 'tomsmith',
     password: 'SuperSecretPassword!',
@@ -9,4 +9,8 @@ export const roles = {
     username: faker.name.firstName(),
     password: faker.internet.password(),
   },
+};
+
+module.exports = {
+  roles,
 };
