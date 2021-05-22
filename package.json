@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pretest": "node ./utils/clear_reports_dir.js && node ./utils/delete_log_files.js",
+    "pretest": "node ./src/utils/clear_reports_dir.js && node ./src/utils/delete_log_files.js",
     "lint": "eslint --fix",
     "test": "jest --config jest.config.local.js --colors --testTimeout=60000 --maxWorkers 1"
   },

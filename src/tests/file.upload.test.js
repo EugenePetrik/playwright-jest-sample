@@ -34,7 +34,7 @@ describe('File Upload page', function () {
   });
 
   test('should upload file', async function () {
-    const imagePath = path.resolve(path.join('.', 'fixtures', 'dogs-image.jpg'));
+    const imagePath = path.resolve(path.join('.', 'src', 'fixtures', 'dogs-image.jpg'));
 
     await fileUploadPage.uploadFile(imagePath);
     await fileUploadPage.clickOnUploadButton();
