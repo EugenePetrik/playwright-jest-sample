@@ -23,13 +23,19 @@ class DynamicLoadingPage extends BasePage {
 
   async isLoadingHidden() {
     logger.debug('Wait until loading element is hidden on the Dynamic Loading page');
-    return await this.page.waitForSelector(this.loading, { state: 'hidden' });
+    return await super.waitForSelector(this.loading, 'hidden');
+  }
+
+  async isFinishTextVisible() {
+    const isTextVisible = await this.isVisible(this.finishText);
+    logger.debug(`Finish text is ${isTextVisible ? 'visible' : 'not visible'} on the Dynamic Loading page`);
+    return isTextVisible;
   }
 
   async getFinishText() {
     const text = await this.getElementContent(this.finishText);
-    logger.debug(`Finish text is ${text.trim()} on the Dynamic Loading page`);
-    return text.trim();
+    logger.debug(`Finish text is ${text} on the Dynamic Loading page`);
+    return text;
   }
 }
 

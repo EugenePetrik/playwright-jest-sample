@@ -19,9 +19,10 @@ class BrokenImagesPage extends BasePage {
   async getImageSrcForAvatar(index) {
     // await this.page.evaluate(element => element.value, await this.page.$('input'));
     // await this.page.evaluate(() => document.querySelector('input').getAttribute('value'));
-    const imgSrc = await this.page.$eval(this.getImageSelector(index), element => element.src);
-    logger.debug(`Image ${index} has src ${imgSrc} on the Broken Images page`);
-    return imgSrc;
+    // await this.page.$eval(this.getImageSelector(index), element => element.src);
+    const imageSrcAttr = await this.getElementAttribute(this.getImageSelector(index), 'src');
+    logger.debug(`Image ${index} has src ${imageSrcAttr} on the Broken Images page`);
+    return imageSrcAttr;
   }
 }
 

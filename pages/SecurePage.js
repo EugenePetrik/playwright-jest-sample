@@ -10,9 +10,9 @@ class SecurePage extends BasePage {
   }
 
   async getSuccessMessage() {
-    const text = await this.getElementContent(this.successMessage);
-    logger.debug(`Success message is ${text.trim().match(/^.*!/g)[0]} on the Secure page`);
-    return text.trim().match(/^.*!/g)[0];
+    const text = await (await this.getElementContent(this.successMessage)).trim().match(/^.*!/g)[0];
+    logger.debug(`Success message is ${text} on the Secure page`);
+    return text;
   }
 
   async clickOnLogoutButton() {

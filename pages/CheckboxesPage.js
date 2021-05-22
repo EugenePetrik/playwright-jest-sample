@@ -23,7 +23,7 @@ class CheckboxesPage extends BasePage {
 
   async isCheckboxChecked(index) {
     // return await this.page.$eval(`//*[@id='checkboxes']/input[${index}]`, element => element.checked);
-    const isChecked = await this.page.isChecked(this.getCheckboxSelector(index));
+    const isChecked = await this.isChecked(this.getCheckboxSelector(index));
     logger.debug(`Checkbox ${index} is ${isChecked ? 'checked' : 'unchecked'} on the Checkboxes page`);
     return isChecked;
   }

@@ -30,21 +30,28 @@ class HoversPage extends BasePage {
 
   async hoverToAvatar(index) {
     logger.debug(`Hover to user avatar with index ${index} on the Hover page`);
-    await this.page.hover(this.getUserAvatar(index));
+    await this.hoverToElement(this.getUserAvatar(index));
   }
 
   async isUserInfoSectionVisible(index) {
-    const isUserInfoVisible = await this.page.isVisible(this.getUserInfoSection(index));
+    const isUserInfoVisible = await this.isVisible(this.getUserInfoSection(index));
     logger.debug(`User info is ${isUserInfoVisible ? 'visible' : 'invisible'} for ${index} avatar on the Hover page`);
     return isUserInfoVisible;
   }
 
   async getUserData(index) {
+    // const userData = {
+    //   avatar: await this.page.$eval(this.getUserAvatar(index), element => element.src),
+    //   name: await this.getElementContent(this.getUserName(index)),
+    //   profile: await this.page.$eval(this.getUserProfileLink(index), element => element.href),
+    // };
+
     const userData = {
-      avatar: await this.page.$eval(this.getUserAvatar(index), element => element.src),
+      avatar: await this.getElementAttribute(this.getUserAvatar(index), 'src'),
       name: await this.getElementContent(this.getUserName(index)),
-      profile: await this.page.$eval(this.getUserProfileLink(index), element => element.href),
+      profile: await this.getElementAttribute(this.getUserProfileLink(index), 'href'),
     };
+
     logger.debug(`User info for avatar ${index} is ${JSON.stringify(userData)} on the Hovers page`);
     return userData;
   }

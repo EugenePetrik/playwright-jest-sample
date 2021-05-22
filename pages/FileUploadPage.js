@@ -17,7 +17,8 @@ class FileUploadPage extends BasePage {
 
   async uploadFile(path) {
     logger.debug(`Upload file from ${path} on the File Upload page`);
-    await this.page.setInputFiles(this.uploadFileInput, path);
+    await super.uploadFile(this.uploadFileInput, path);
+    logger.debug(`File uploaded on the File Upload page`);
   }
 
   async clickOnUploadButton() {
@@ -27,8 +28,8 @@ class FileUploadPage extends BasePage {
 
   async getUploadedFileName() {
     const fileName = await this.getElementContent(this.fileName);
-    logger.debug(`File Uploaded name is ${fileName.trim()}`);
-    return fileName.trim();
+    logger.debug(`File Uploaded name is ${fileName}`);
+    return fileName;
   }
 }
 

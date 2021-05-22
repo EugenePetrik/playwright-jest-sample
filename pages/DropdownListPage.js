@@ -33,8 +33,8 @@ class DropdownListPage extends BasePage {
 
   async getOptionText(index) {
     const text = await this.getElementContent(this.getDropdownSelector(index));
-    logger.debug(`Dropdown option ${index} has text ${text.trim()} on the Dropdown List page`);
-    return text.trim();
+    logger.debug(`Dropdown option ${index} has text ${text} on the Dropdown List page`);
+    return text;
   }
 }
 

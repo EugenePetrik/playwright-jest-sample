@@ -1,6 +1,5 @@
 import { HoversPage } from '../pages/HoversPage';
 import browser from '../config/browser';
-import { env } from '../config/env';
 
 describe('Hovers page', function () {
   let hoversPage;
@@ -41,9 +40,9 @@ describe('Hovers page', function () {
 
     const userData = await hoversPage.getUserData(3);
     expect(userData).toEqual({
-      avatar: `${env.THE_INTERNET_URL}/img/avatar-blank.jpg`,
+      avatar: '/img/avatar-blank.jpg',
       name: 'name: user3',
-      profile: `${env.THE_INTERNET_URL}/users/3`,
+      profile: '/users/3',
     });
   });
 });

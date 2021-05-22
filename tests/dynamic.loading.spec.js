@@ -41,6 +41,9 @@ describe('Dynamic Loading page', function () {
     const isLoadingHidden = await dynamicLoadingPage.isLoadingHidden();
     expect(isLoadingHidden).toBe(null);
 
+    const isFinishTextVisible = await dynamicLoadingPage.isFinishTextVisible();
+    expect(isFinishTextVisible).toBe(true);
+
     const finishText = await dynamicLoadingPage.getFinishText();
     expect(finishText).toEqual('Hello World!');
   });

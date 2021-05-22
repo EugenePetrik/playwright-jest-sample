@@ -34,16 +34,16 @@ describe('Broken Images page', function () {
 
   test('should have first broken image', async function () {
     const imgSrcAttr = await brokenImagesPage.getImageSrcForAvatar(1);
-    expect(imgSrcAttr).toMatch(/\/asdf\.jpg$/);
+    expect(imgSrcAttr).toMatch(/asdf\.jpg$/);
   });
 
   test('should have second broken image', async function () {
     const imgSrcAttr = await brokenImagesPage.getImageSrcForAvatar(2);
-    expect(imgSrcAttr).toMatch(/\/hjkl.jpg$/);
+    expect(imgSrcAttr).toMatch(/hjkl.jpg$/);
   });
 
   test('should have third valid image', async function () {
     const imgSrcAttr = await brokenImagesPage.getImageSrcForAvatar(3);
-    expect(imgSrcAttr).toMatch(/\/img\/avatar-blank.jpg$/);
+    expect(imgSrcAttr).toMatch(/img\/avatar-blank.jpg$/);
   });
 });

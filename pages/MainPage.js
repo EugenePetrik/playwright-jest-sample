@@ -22,8 +22,8 @@ class MainPage extends BasePage {
 
   async getFooterText() {
     const footer = await this.getElementContent(this.footer);
-    logger.debug(`Footer text is ${footer.trim()} on the Main page`);
-    return footer.trim();
+    logger.debug(`Footer text is ${footer} on the Main page`);
+    return footer;
   }
 }
 
