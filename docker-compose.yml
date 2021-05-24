@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  playwright_jest_tests:
+    image: playwright-jest-image
+    container_name: playwright-jest-container
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    env_file: 
+      - .env
+    volumes: 
+      - ./reports/:/app/reports
