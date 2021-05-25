@@ -1,63 +1,42 @@
 import { chromium, webkit, firefox, devices } from 'playwright';
 import { env } from './env';
 import { logger } from './logger';
-import chalk from 'chalk';
 
 class Browser {
-  constructor() {
-    this.browserName = env.BROWSER_NAME;
-    this.deviceName = env.DEVICE_NAME;
-    this.width = env.VIEWPORT_WIDTH;
-    this.height = env.VIEWPORT_HEIGHT;
-    this.isNetworkSubscriptionEnabled = env.NETWORK_SUBSCRIPTION;
-    this.headless = env.HEADLESS;
-    this.devtools = env.DEVTOOLS;
-    this.slowMo = env.SLOW_MO;
-    this.defaultViewport = env.VIEWPORT;
-
-    this.browser = null;
-    this.context = null;
-    this.page = null;
-  }
+  browser = null;
+  context = null;
+  page = null;
 
   async openBrowser() {
-    this.browser = await { chromium, webkit, firefox }[this.browserName].launch({
-      headless: this.headless,
-      devtools: this.devtools,
-      slowMo: this.slowMo,
+    this.browser = await { chromium, webkit, firefox }[env.BROWSER_NAME].launch({
+      headless: env.HEADLESS,
+      devtools: env.DEVTOOLS,
+      slowMo: env.SLOW_MO,
     });
-
-    logger.info(`Browser name - ${this.browserName}`);
-
+    logger.info(`Browser name - ${env.BROWSER_NAME}`);
     return this.browser;
   }
 
-  async openBrowserContext(viewport = this.defaultViewport) {
+  async openBrowserContext(viewport = env.VIEWPORT) {
     logger.info(`Current viewport - ${viewport}`);
-
     switch (viewport) {
       case 'desktop':
-        logger.info(`Browser width - ${this.width}, browser height - ${this.height}`);
+        logger.info(`Browser width - ${env.VIEWPORT_WIDTH}, browser height - ${env.VIEWPORT_HEIGHT}`);
         this.context = await this.browser.newContext({
           viewport: {
-            width: this.width,
-            height: this.height,
+            width: env.VIEWPORT_WIDTH,
+            height: env.VIEWPORT_HEIGHT,
           },
         });
         break;
       case 'mobile':
-        logger.info(`Device - ${this.deviceName}`);
+        logger.info(`Device - ${env.DEVICE_NAME}`);
         this.context = await this.browser.newContext({
-          ...devices[this.deviceName],
+          ...devices[env.DEVICE_NAME],
         });
         break;
       default:
         throw new Error('[ERROR] Please, select the browser viewport');
-    }
-
-    if (this.isNetworkSubscriptionEnabled) {
-      page.on('request', request => logger.debug(chalk.green('>>', request.method(), request.url())));
-      page.on('response', response => logger.debug(chalk.green('<<', response.status(), response.url())));
     }
 
     return this.context;
@@ -65,22 +44,25 @@ class Browser {
 
   async openPage() {
     this.page = await this.context.newPage();
+
+    if (env.NETWORK_SUBSCRIPTION) {
+      this.page.on('request', request => logger.info(`>> ${request.method()} -> ${request.url()}`));
+      this.page.on('response', response => logger.info(`<< ${response.status()} -> ${response.url()}`));
+    }
+
     return this.page;
   }
 
   async closePage() {
-    this.page = await this.page.close();
-    return this.page;
+    await this.page.close();
   }
 
   async closeBrowserContext() {
-    this.context = await this.context.close();
-    return this.context;
+    await this.context.close();
   }
 
   async closeBrowser() {
-    this.browser = await this.browser.close();
-    return this.browser;
+    await this.browser.close();
   }
 }
 
