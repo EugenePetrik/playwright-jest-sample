@@ -1,5 +1,9 @@
 module.exports = {
+  setupFiles: ['dotenv/config'],
   testEnvironment: 'node',
+  testMatch: ['**/tests/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+  testTimeout: 60000,
+  maxWorkers: 1,
   reporters: [
     'default',
     [
@@ -14,10 +18,6 @@ module.exports = {
   moduleFileExtensions: ['js', 'json'],
   transform: {
     '^.+\\.jsx?$': 'babel-jest',
-  },
-  testMatch: ['**/tests/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
-  globals: {
-    testTimeout: 50000,
   },
   verbose: true,
 };
