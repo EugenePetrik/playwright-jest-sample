@@ -1,7 +1,7 @@
 import { bool, cleanEnv, num, str, url } from 'envalid';
 
 export const env = cleanEnv(process.env, {
-  THE_INTERNET_URL: url({
+  BASE_URL: url({
     default: 'https://the-internet.herokuapp.com',
     desc: 'App URL to be tested',
   }),

@@ -7,7 +7,7 @@ class BasePage {
   }
 
   async open(path) {
-    const pageUrl = env.THE_INTERNET_URL + path;
+    const pageUrl = env.BASE_URL + path;
     logger.info(`Page URL - ${pageUrl}`);
     await this.page.goto(pageUrl, { waitUntil: 'load' });
     return this.page;
