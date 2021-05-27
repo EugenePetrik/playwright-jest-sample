@@ -41,4 +41,12 @@ export const env = cleanEnv(process.env, {
     default: false,
     desc: 'Network Subscription enabled',
   }),
+  ADMIN_USERNAME: str({
+    default: 'tomsmith',
+    desc: 'Username for login tests',
+  }),
+  ADMIN_PASSWORD: str({
+    default: 'SuperSecretPassword!',
+    desc: 'User password for login tests',
+  }),
 });

@@ -12,7 +12,7 @@ class DynamicLoadingPage extends BasePage {
   }
 
   async open() {
-    logger.info('Open the Dynamic Loading page');
+    logger.debug('Open the Dynamic Loading page');
     await super.open('/dynamic_loading/1');
   }
 

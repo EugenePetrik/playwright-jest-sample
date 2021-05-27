@@ -8,7 +8,7 @@ class CheckboxesPage extends BasePage {
   }
 
   async open() {
-    logger.info('Open the Checkboxes page');
+    logger.debug('Open the Checkboxes page');
     await super.open('/checkboxes');
   }
 

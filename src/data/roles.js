@@ -1,9 +1,10 @@
 import faker from 'faker';
+import { env } from '../config/env';
 
 const roles = {
   adminUser: {
-    username: 'tomsmith',
-    password: 'SuperSecretPassword!',
+    username: env.ADMIN_USERNAME,
+    password: env.ADMIN_PASSWORD,
   },
   fakeUser: {
     username: faker.name.firstName(),

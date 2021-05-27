@@ -8,7 +8,7 @@ class BrokenImagesPage extends BasePage {
   }
 
   async open() {
-    logger.info('Open the Broken Images page');
+    logger.debug('Open the Broken Images page');
     await super.open('/broken_images');
   }
 

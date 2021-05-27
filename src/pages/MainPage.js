@@ -10,7 +10,7 @@ class MainPage extends BasePage {
   }
 
   async open() {
-    logger.info('Open the Main page');
+    logger.debug('Open the Main page');
     await super.open('/');
   }
 

@@ -13,15 +13,15 @@ class Browser {
       devtools: env.DEVTOOLS,
       slowMo: env.SLOW_MO,
     });
-    logger.info(`Browser name - ${env.BROWSER_NAME}`);
+    logger.debug(`Browser name - ${env.BROWSER_NAME}`);
     return this.browser;
   }
 
   async openBrowserContext(viewport = env.VIEWPORT) {
-    logger.info(`Current viewport - ${viewport}`);
+    logger.debug(`Current viewport - ${viewport}`);
     switch (viewport) {
       case 'desktop':
-        logger.info(`Browser width - ${env.VIEWPORT_WIDTH}, browser height - ${env.VIEWPORT_HEIGHT}`);
+        logger.debug(`Browser width - ${env.VIEWPORT_WIDTH}, browser height - ${env.VIEWPORT_HEIGHT}`);
         this.context = await this.browser.newContext({
           viewport: {
             width: env.VIEWPORT_WIDTH,
@@ -30,7 +30,7 @@ class Browser {
         });
         break;
       case 'mobile':
-        logger.info(`Device - ${env.DEVICE_NAME}`);
+        logger.debug(`Device - ${env.DEVICE_NAME}`);
         this.context = await this.browser.newContext({
           ...devices[env.DEVICE_NAME],
         });
@@ -46,8 +46,8 @@ class Browser {
     this.page = await this.context.newPage();
 
     if (env.NETWORK_SUBSCRIPTION) {
-      this.page.on('request', request => logger.info(`>> ${request.method()} -> ${request.url()}`));
-      this.page.on('response', response => logger.info(`<< ${response.status()} -> ${response.url()}`));
+      this.page.on('request', request => logger.debug(`>> ${request.method()} -> ${request.url()}`));
+      this.page.on('response', response => logger.debug(`<< ${response.status()} -> ${response.url()}`));
     }
 
     return this.page;

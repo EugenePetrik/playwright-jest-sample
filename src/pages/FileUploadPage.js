@@ -11,7 +11,7 @@ class FileUploadPage extends BasePage {
   }
 
   async open() {
-    logger.info('Open the File Upload page');
+    logger.debug('Open the File Upload page');
     await super.open('/upload');
   }
 

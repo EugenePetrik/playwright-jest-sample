@@ -10,7 +10,7 @@ class AddRemoveElementsPage extends BasePage {
   }
 
   async open() {
-    logger.info('Open the Add Remove Elements page');
+    logger.debug('Open the Add Remove Elements page');
     await super.open('/add_remove_elements/');
   }
 

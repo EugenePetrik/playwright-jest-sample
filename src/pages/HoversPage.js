@@ -8,7 +8,7 @@ class HoversPage extends BasePage {
   }
 
   async open() {
-    logger.info('Open the Hovers page');
+    logger.debug('Open the Hovers page');
     await super.open('/hovers');
   }
 

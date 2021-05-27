@@ -9,7 +9,7 @@ class DropdownListPage extends BasePage {
   }
 
   async open() {
-    logger.info('Open the Dropdown List page');
+    logger.debug('Open the Dropdown List page');
     await super.open('/dropdown');
   }
 

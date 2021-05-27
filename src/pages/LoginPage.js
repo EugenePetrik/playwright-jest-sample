@@ -13,7 +13,7 @@ class LoginPage extends BasePage {
   }
 
   async open() {
-    logger.info('Open the Login page');
+    logger.debug('Open the Login page');
     await super.open('/login');
   }
 
