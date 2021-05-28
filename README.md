@@ -122,13 +122,3 @@ docker-compose up
 ```bash
 docker-compose down
 ```
-
-### Run tests in docker-compose
-
-```bash
-docker-compose up
-```
-
-```bash
-docker-compose down
-```
