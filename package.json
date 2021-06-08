@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint --fix",
-    "remove-logs": "node ./src/utils/cleanup/logsCleaner.js",
+    "remove-logs": "node ./src/utils/logsCleaner.js",
     "pretest": "npm run remove-logs",
     "test": "jest --config jest.config.js",
     "report": "allure generate ./allure-results --clean && allure open",

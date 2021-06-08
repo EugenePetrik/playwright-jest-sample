@@ -11,4 +11,5 @@ services:
       - .env
     volumes: 
       - ./reports/:/app/reports
+      - ./allure-report/:/app/allure-report
       - ./logs/:/app/logs

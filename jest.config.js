@@ -2,7 +2,7 @@ module.exports = {
   setupFiles: ['dotenv/config'],
   testEnvironment: 'node',
   setupFilesAfterEnv: ['jest-allure/dist/setup'],
-  testMatch: ['**/tests/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+  testMatch: ['**/tests/**/*.test.js'],
   testTimeout: 60000,
   maxWorkers: 1,
   reporters: [

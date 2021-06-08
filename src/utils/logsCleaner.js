@@ -1,9 +1,9 @@
 const fs = require('fs-extra');
 const path = require('path');
-const { logger } = require('../../config/logger');
+const { logger } = require('../config/logger');
 
 // Delete reports directory
-const reportsDirPath = path.join(__dirname, '..', '..', '..', 'reports');
+const reportsDirPath = path.join(__dirname, '..', '..', 'reports');
 logger.info(`Removing the reports directory -> ${reportsDirPath}`);
 fs.emptyDirSync(reportsDirPath);
 logger.info('Reports directory removed');
@@ -16,7 +16,7 @@ fs.removeSync(combinedLogFilePath);
 logger.info('File combined.log removed');
 
 // Create logs directory
-const logsDirPath = path.join(__dirname, '..', '..', '..', 'logs');
+const logsDirPath = path.join(__dirname, '..', '..', 'logs');
 logger.info(`Creating the logs directory -> ${logsDirPath}`);
 
 fs.ensureDirSync(logsDirPath);
