@@ -8,6 +8,18 @@ logger.info(`Removing the reports directory -> ${reportsDirPath}`);
 fs.emptyDirSync(reportsDirPath);
 logger.info('Reports directory removed');
 
+// Delete allure-report directory
+const allureReportDirPath = path.join(__dirname, '..', '..', 'allure-report');
+logger.info(`Removing the allure-report directory -> ${allureReportDirPath}`);
+fs.emptyDirSync(allureReportDirPath);
+logger.info('Allure report directory removed');
+
+// Delete allure-results directory
+const allureResultsDirPath = path.join(__dirname, '..', '..', 'allure-results');
+logger.info(`Removing the allure-results directory -> ${allureResultsDirPath}`);
+fs.emptyDirSync(allureResultsDirPath);
+logger.info('Allure results directory removed');
+
 // Delete combined.log file
 const combinedLogFilePath = path.resolve('./logs/combined.log');
 logger.info(`Removing the combined.log file -> ${combinedLogFilePath}`);
