@@ -24,7 +24,13 @@ npm t
 ### Run tests from a specific file
 
 ```bash
-npm t -- ./src/tests/main.test.js
+npm t ./src/tests/main.test.js
+```
+
+### Open Allure report
+
+```bash
+npm run report
 ```
 
 ### Run tests in docker
@@ -59,7 +65,7 @@ docker run -it --rm the-internet-playwright:latest
 docker run -v ${PWD}/reports:/app/reports -it --rm the-internet-playwright
 ```
 
-- Touch to container:
+- Attach to container:
 
 ```bash
 docker run --name <container_name> -it <image_name:image_tag>

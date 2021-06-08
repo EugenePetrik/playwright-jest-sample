@@ -14,7 +14,8 @@
   "keywords": [
     "Playwright",
     "Jest",
-    "Page Object"
+    "Page Object",
+    "Allure"
   ],
   "author": "",
   "license": "ISC",
