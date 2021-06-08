@@ -7,7 +7,9 @@
     "lint": "eslint --fix",
     "remove-logs": "node ./src/utils/cleanup/logsCleaner.js",
     "pretest": "npm run remove-logs",
-    "test": "jest --config jest.config.js"
+    "test": "jest --config jest.config.js",
+    "report": "allure generate ./allure-results --clean && allure open",
+    "report-ci": "allure generate allure-results --clean -o allure-report"
   },
   "keywords": [
     "Playwright",
@@ -29,6 +31,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.13.15",
+    "allure-commandline": "^2.13.8",
     "babel-eslint": "^10.1.0",
     "dotenv": "^8.2.0",
     "envalid": "^7.1.0",
@@ -42,6 +45,7 @@
     "faker": "^5.5.3",
     "husky": "^4.3.8",
     "jest": "^26.6.3",
+    "jest-allure": "^0.1.3",
     "jest-html-reporters": "^2.1.4",
     "lint-staged": "^10.5.3",
     "playwright": "^1.11.0",
