@@ -1,7 +1,7 @@
 import faker from 'faker';
 import { LoginPage } from '../pages/LoginPage';
 import { SecurePage } from '../pages/SecurePage';
-import { roles } from '../data/roles';
+import { users } from '../models/users';
 import browser from '../config/browser';
 
 describe('Login page', function () {
@@ -37,7 +37,7 @@ describe('Login page', function () {
   });
 
   test('user should login with valid credentials', async function () {
-    await loginPage.signInAs(roles.adminUser);
+    await loginPage.signInAs(users.adminUser);
 
     const pageUrl = await securePage.getPageUrl();
     expect(pageUrl).toContain('/secure');
@@ -53,7 +53,7 @@ describe('Login page', function () {
   });
 
   test('user should logout from the system', async function () {
-    await loginPage.signInAs(roles.adminUser);
+    await loginPage.signInAs(users.adminUser);
 
     await securePage.clickOnLogoutButton();
 
@@ -69,19 +69,19 @@ describe('Login page', function () {
       testName: 'user should get an error when logging in with invalid username',
       userData: {
         username: faker.name.firstName(),
-        password: roles.adminUser.password,
+        password: users.adminUser.password,
       },
       expectedErrorMessage: 'Your username is invalid!',
     },
     {
       testName: 'user should get an error when logging in with a non-existent user',
-      userData: roles.fakeUser,
+      userData: users.fakeUser,
       expectedErrorMessage: 'Your username is invalid!',
     },
     {
       testName: 'user should get an error when logging in with invalid password',
       userData: {
-        username: roles.adminUser.username,
+        username: users.adminUser.username,
         password: faker.internet.password(),
       },
       expectedErrorMessage: 'Your password is invalid!',
